@@ -93,7 +93,7 @@ export type Node = RootNode | NonTextInlineNode;
  * Renderer
  * -----------------------------------------------------------------------------------------------*/
 
-const renderChildren = (children: (DefaultInlineNode | ListItemInlineNode | ListBlockNode)[]) => {
+const renderChildren = (children: (DefaultInlineNode | ListItemInlineNode | ListBlockNode)[]): string => {
   let html = '';
   children.forEach((child) => {
     if (child.type === 'text') {
@@ -109,7 +109,7 @@ const renderChildren = (children: (DefaultInlineNode | ListItemInlineNode | List
   return html;
 }
 
-const renderText = (node: TextInlineNode) => {
+const renderText = (node: TextInlineNode): string => {
   let html = node.text;
   if (node.bold) {
     html = `<strong>${html}</strong>`;
@@ -134,7 +134,7 @@ const renderText = (node: TextInlineNode) => {
   return html;
 }
 
-export const renderBlock = (block: Node[]) => {
+export const renderBlock = (block: Node[]): string => {
   let html = '';
   block.forEach((block) => {
     if (block.type === 'paragraph') {
