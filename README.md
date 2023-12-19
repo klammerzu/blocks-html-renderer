@@ -30,5 +30,5 @@ const content: Node[] = [
 ];
 
 renderBlock(content);
-
+//<p>A simple paragraph</p>
 ```
