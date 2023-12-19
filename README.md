@@ -18,11 +18,11 @@ npm install blocks-html-renderer
 
 After fetching your Strapi content, you can use the BlocksRenderer component to render the data from a blocks attribute. Pass the array of blocks coming from your Strapi API to the `content` prop:
 
-```jsx
-import { renderBlock } from 'blocks-html-renderer';
+```ts
+import { renderBlock, type Node } from 'blocks-html-renderer';
 
 // Content should come from your Strapi API
-const content = [
+const content: Node[] = [
   {
     type: 'paragraph',
     children: [{ type: 'text', text: 'A simple paragraph' }],
