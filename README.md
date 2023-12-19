@@ -1,10 +1,10 @@
 # Strapi Blocks React Renderer
 
-Easily render the content of Strapi's new Blocks rich text editor in your React frontend.
+Render the content of Strapi's Blocks rich text editor as HTML in your frontend.
 
 ## Installation
 
-Install the Blocks renderer and its peer dependencies:
+Install the HTML-Blocks renderer and its peer dependencies:
 
 ```sh
 yarn add blocks-html-renderer
@@ -16,7 +16,7 @@ npm install blocks-html-renderer
 
 ## Basic usage
 
-After fetching your Strapi content, you can use the BlocksRenderer component to render the data from a blocks attribute. Pass the array of blocks coming from your Strapi API to the `content` prop:
+After fetching your Strapi content, you can use the renderBlock function to render the data from a blocks attribute. Pass the array of blocks coming from your Strapi API to the `content` prop:
 
 ```ts
 import { renderBlock, type Node } from 'blocks-html-renderer';
