@@ -135,6 +135,7 @@ const renderText = (node: TextInlineNode): string => {
 }
 
 export const renderBlock = (block: Node[]): string => {
+  if (!block) return '';
   let html = '';
   block.forEach((block) => {
     if (block.type === 'paragraph') {
