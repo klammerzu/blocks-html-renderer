@@ -169,8 +169,9 @@ export const renderBlock = (block: Node[]): string => {
       if (block.format === 'ordered') {
         html += `<ol>${renderChildren(block.children)}</ol>`;
       }
-
-      html += `<ul>${renderChildren(block.children)}</ul>`;
+      else {
+        html += `<ul>${renderChildren(block.children)}</ul>`;
+      }
     }
     else if (block.type === 'list-item') {
       html += `<li>${renderChildren(block.children)}</li>`;
