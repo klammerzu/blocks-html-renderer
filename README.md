@@ -1,4 +1,4 @@
-# Strapi Blocks React Renderer
+# Strapi Blocks HTML Renderer
 
 Render the content of Strapi's Blocks rich text editor as HTML in your frontend.
 
