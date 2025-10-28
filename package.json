@@ -1,6 +1,6 @@
 {
   "name": "blocks-html-renderer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "bugs": {
     "url": "https://github.com/klammerzu/blocks-html-renderer/issues"
   },
@@ -42,6 +42,7 @@
   "scripts": {
     "lint": "eslint . --ext .cjs,.js,.ts,.tsx",
     "lint:fix": "yarn lint --fix",
+    "prepare": "npm run build",
     "prepublishOnly": "yarn build",
     "test": "yarn run test:ts && yarn run test:unit",
     "test:unit": "jest",

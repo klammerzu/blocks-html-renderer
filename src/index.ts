@@ -53,6 +53,7 @@ interface ListBlockNode {
   type: 'list';
   format: 'ordered' | 'unordered';
   children: (ListItemInlineNode | ListBlockNode)[];
+  indentLevel?: number;
 }
 
 interface ImageBlockNode {
@@ -105,6 +106,9 @@ const renderChildren = (children: (DefaultInlineNode | ListItemInlineNode | List
     else if (child.type === 'list-item') {
       html += `<li>${renderChildren(child.children)}</li>`;
     }
+    else if (child.type === 'list') {
+      html += renderList(child);
+    }
   });
   return html;
 }
@@ -133,6 +137,37 @@ const renderText = (node: TextInlineNode): string => {
 
   return html;
 }
+
+const renderList = (node: ListBlockNode): string => {
+  const items: string[] = [];
+  let pendingPieces: string[] | null = null;
+
+  const flushPending = () => {
+    if (pendingPieces && pendingPieces.length > 0) {
+      items.push(`<li>${pendingPieces.join('')}</li>`);
+      pendingPieces = null;
+    }
+  };
+
+  node.children.forEach((child) => {
+    if (child.type === 'list-item') {
+      flushPending();
+      pendingPieces = [renderChildren(child.children)];
+    } else if (child.type === 'list') {
+      const nestedHtml = renderList(child);
+      if (pendingPieces) {
+        pendingPieces.push(nestedHtml);
+      } else {
+        items.push(`<li>${nestedHtml}</li>`);
+      }
+    }
+  });
+
+  flushPending();
+
+  const tag = node.format === 'ordered' ? 'ol' : 'ul';
+  return `<${tag}>${items.join('')}</${tag}>`;
+};
 
 export const renderBlock = (block: Node[]): string => {
   if (!block) return '';
@@ -167,12 +202,7 @@ export const renderBlock = (block: Node[]): string => {
       html += `<a href="${block.url}">${renderChildren(block.children)}</a>`;
     }
     else if (block.type === 'list') {
-      if (block.format === 'ordered') {
-        html += `<ol>${renderChildren(block.children)}</ol>`;
-      }
-      else {
-        html += `<ul>${renderChildren(block.children)}</ul>`;
-      }
+      html += renderList(block);
     }
     else if (block.type === 'list-item') {
       html += `<li>${renderChildren(block.children)}</li>`;
