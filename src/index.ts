@@ -96,6 +96,7 @@ export type Node = RootNode | NonTextInlineNode;
 
 const renderChildren = (children: (DefaultInlineNode | ListItemInlineNode | ListBlockNode)[]): string => {
   let html = '';
+  if (!children) return html;
   children.forEach((child) => {
     if (child.type === 'text') {
       html += renderText(child);
@@ -149,7 +150,7 @@ const renderList = (node: ListBlockNode): string => {
     }
   };
 
-  node.children.forEach((child) => {
+  node.children?.forEach((child) => {
     if (child.type === 'list-item') {
       flushPending();
       pendingPieces = [renderChildren(child.children)];
